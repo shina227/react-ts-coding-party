@@ -1,0 +1,35 @@
+/* main container */
+.dashboard {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.dashboard h2 {
+  margin-bottom: 6px;
+}
+
+.dashboard p {
+  margin-bottom: 20px;
+  color: #555;
+}
+
+/* grid for cards */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 10px;
+}
+
+/* responsive */
+@media (max-width: 600px) {
+  .dashboard {
+    padding: 12px;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}

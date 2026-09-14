@@ -1,0 +1,89 @@
+/* card styling */
+.card {
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  margin: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* member name */
+.name {
+  margin: 0;
+  font-size: 20px;
+  color: #222;
+}
+
+/* member role */
+.role {
+  margin: 0;
+  font-size: 14px;
+  font-style: italic;
+  color: #666;
+}
+
+/* tasks info */
+.tasks {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* bio text */
+.bio {
+  margin: 0;
+  font-size: 13px;
+  color: #555;
+}
+
+/* status label - active */
+.status-active {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: green;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  align-self: flex-start;
+}
+
+/* status label - inactive */
+.status-inactive {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: crimson;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  align-self: flex-start;
+}
+
+/* card background based on status */
+.card.active {
+  background: #e8f5e9;
+  border-color: #66bb6a;
+}
+
+.card.inactive {
+  background: #fce4ec;
+  border-color: #ef5350;
+}
+
+/* responsive - smaller screens */
+@media (max-width: 600px) {
+  .card {
+    padding: 12px;
+  }
+
+  .name {
+    font-size: 18px;
+  }
+}

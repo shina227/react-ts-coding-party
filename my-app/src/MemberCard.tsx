@@ -1,31 +1,38 @@
-// Author: Shina original component shell (Tasks 1-10)
-// Author: Grevy  typed props, conditional rendering, default values (Tasks 11-19)
+// Author: Shina original shell (Tasks 1-10)
+// Author: Grevy  props and types (Tasks 11-19)
+// Author: Rwema  styling (Tasks 21-30)
 
-// Task 11: typed props interface
+import "./MemberCard.css";
+
 export interface MemberCardProps {
   name: string;
   role: string;
-  tasksCompleted?: number; // Task 14 (numeric) + Task 19 (optional so a default can apply)
-  isActive: boolean; // Task 15
-  bio?: string; // Task 17: optional prop
+  tasksCompleted?: number;
+  isActive: boolean;
+  bio?: string;
 }
 
-// Task 19: default value supplied via default function parameter
-function MemberCard({ name, role, tasksCompleted = 0, isActive, bio }: MemberCardProps) {
+function MemberCard({
+  name,
+  role,
+  tasksCompleted = 0,
+  isActive,
+  bio,
+}: MemberCardProps) {
+  // pick card class based on active state
+  const cardClass = isActive ? "card active" : "card inactive";
+
   return (
-    <div className="member-card">
-      {/* Task 12: display name and role */}
-      <h3>{name}</h3>
-      <p>{role}</p>
+    <div className={cardClass}>
+      <h3 className="name">{name}</h3>
+      <p className="role">{role}</p>
+      <p className="tasks">Tasks completed: {tasksCompleted}</p>
 
-      {/* Task 14: numeric prop */}
-      <p>Tasks completed: {tasksCompleted}</p>
+      <span className={isActive ? "status-active" : "status-inactive"}>
+        {isActive ? "Active" : "Inactive"}
+      </span>
 
-      {/* Task 16: conditional rendering based on isActive */}
-      <p>{isActive ? "Active" : "Inactive"}</p>
-
-      {/* Task 18: only render bio when one is provided */}
-      {bio && <p>{bio}</p>}
+      {bio && <p className="bio">{bio}</p>}
     </div>
   );
 }

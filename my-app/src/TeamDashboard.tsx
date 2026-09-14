@@ -1,9 +1,10 @@
-// Author: Shina Atete Mpeta  original TeamDashboard structure (Tasks 1-10)
-// Author: Grevy  typed member array and props (Tasks 13, 20)
-import MemberCard, { type MemberCardProps } from "./MemberCard";
+// Author: Shina Atete Mpeta  structure (Tasks 1-10)
+// Author: Grevy  array and props (Tasks 13, 20)
+// Author: Rwema  layout and styling (Tasks 21-30)
 
-// Task 20: typed array of member objects
-// (Task 13 is satisfied by this array feeding different name/role values to each card)
+import MemberCard, { type MemberCardProps } from "./MemberCard";
+import "./TeamDashboard.css";
+
 const members: MemberCardProps[] = [
   {
     name: "Alice",
@@ -15,7 +16,7 @@ const members: MemberCardProps[] = [
   {
     name: "Bob",
     role: "Backend Developer",
-    isActive: false, // tasksCompleted omitted on purpose, Task 19's default kicks in
+    isActive: false,
   },
   {
     name: "Carol",
@@ -27,15 +28,18 @@ const members: MemberCardProps[] = [
 
 function TeamDashboard() {
   return (
-    <>
+    <div className="dashboard">
       <h2>Team Dashboard</h2>
-      <p>Track our group's progress on the React + TypeScript coding party.</p>
+      <p style={{ fontStyle: "italic" }}>
+        Track our group's progress on the React + TypeScript coding party.
+      </p>
 
-      {/* Task 20: render from the typed array with .map() */}
-      {members.map((member, index) => (
-        <MemberCard key={index} {...member} />
-      ))}
-    </>
+      <div className="card-grid">
+        {members.map((member, index) => (
+          <MemberCard key={index} {...member} />
+        ))}
+      </div>
+    </div>
   );
 }
 
