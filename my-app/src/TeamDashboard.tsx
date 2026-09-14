@@ -8,9 +8,7 @@ import { type ChangeEvent, type FormEvent, useMemo, useState } from "react";
 import MemberCard, { type MemberCardProps } from "./MemberCard";
 import "./TeamDashboard.css";
 
-interface TeamMember extends MemberCardProps {
-  id: string;
-}
+interface TeamMember extends MemberCardProps {}
 
 type FilterOption = "all" | "active" | "inactive";
 
