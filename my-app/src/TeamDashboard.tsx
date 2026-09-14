@@ -1,14 +1,16 @@
-// Author: Shina Atete Mpeta  structure (Tasks 1-10)
-// Author: Grevy  array and props (Tasks 13, 20)
-// Author: Rwema  layout and styling (Tasks 21-30)
-// Author: IRADUKUNDA Ibrahim  form handling (Tasks 31-40)
-
-import { type ChangeEvent, type FormEvent, useState } from "react";
+import { type ChangeEvent, type FormEvent, useMemo, useState } from "react";
 import MemberCard, { type MemberCardProps } from "./MemberCard";
 import "./TeamDashboard.css";
 
-const members: MemberCardProps[] = [
+interface TeamMember extends MemberCardProps {
+  id: string;
+}
+
+type FilterOption = "all" | "active" | "inactive";
+
+const initialMembers: TeamMember[] = [
   {
+    id: "1",
     name: "Alice",
     role: "Frontend Developer",
     tasksCompleted: 12,
@@ -16,30 +18,96 @@ const members: MemberCardProps[] = [
     bio: "Loves building UI with React.",
   },
   {
+    id: "2",
     name: "Bob",
     role: "Backend Developer",
     isActive: false,
   },
   {
+    id: "3",
     name: "Carol",
     role: "Designer",
     tasksCompleted: 5,
     isActive: true,
+  },
+  {
+    id: "4",
+    name: "Dan Kagame",
+    role: "Project Lead",
+    tasksCompleted: 8,
+    isActive: true,
+    bio: "Coordinates the team and keeps the project on track.",
   },
 ];
 
 function TeamDashboard() {
   const [teamScore, setTeamScore] = useState<number>(0);
   const [newMemberName, setNewMemberName] = useState<string>("");
+  const [members, setMembers] = useState<TeamMember[]>(initialMembers);
+  const [filter, setFilter] = useState<FilterOption>("all");
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const filteredMembers = useMemo(() => {
+    return members.filter((member) => {
+      const statusMatches =
+        filter === "all"
+          ? true
+          : filter === "active"
+            ? member.isActive
+            : !member.isActive;
+
+      const searchMatches = member.name
+        .toLowerCase()
+        .includes(searchTerm.trim().toLowerCase());
+
+      return statusMatches && searchMatches;
+    });
+  }, [filter, members, searchTerm]);
 
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setNewMemberName(event.target.value);
   };
 
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("Submitted member name:", newMemberName);
+
+    const trimmedName = newMemberName.trim();
+
+    if (!trimmedName) {
+      return;
+    }
+
+    const newMember: TeamMember = {
+      id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+      name: trimmedName,
+      role: "New Team Member",
+      tasksCompleted: 0,
+      isActive: true,
+      bio: "Recently added to the team.",
+    };
+
+    setMembers((currentMembers) => [newMember, ...currentMembers]);
     setNewMemberName("");
+  };
+
+  const handleRemoveMember = (id: string) => {
+    setMembers((currentMembers) =>
+      currentMembers.filter((member) => member.id !== id),
+    );
+  };
+
+  const handleToggleStatus = (id: string) => {
+    setMembers((currentMembers) =>
+      currentMembers.map((member) =>
+        member.id === id
+          ? { ...member, isActive: !member.isActive }
+          : member,
+      ),
+    );
   };
 
   return (
@@ -77,10 +145,57 @@ function TeamDashboard() {
         <button type="submit">Add Member</button>
       </form>
 
+      <div className="controls-panel">
+        <div className="filter-group" aria-label="Member filters">
+          <button
+            type="button"
+            className={filter === "all" ? "filter-btn active" : "filter-btn"}
+            onClick={() => setFilter("all")}
+          >
+            All
+          </button>
+          <button
+            type="button"
+            className={filter === "active" ? "filter-btn active" : "filter-btn"}
+            onClick={() => setFilter("active")}
+          >
+            Active
+          </button>
+          <button
+            type="button"
+            className={filter === "inactive" ? "filter-btn active" : "filter-btn"}
+            onClick={() => setFilter("inactive")}
+          >
+            Inactive
+          </button>
+        </div>
+
+        <label className="search-label" htmlFor="member-search">
+          Search members
+        </label>
+        <input
+          id="member-search"
+          className="search-input"
+          type="text"
+          value={searchTerm}
+          onChange={handleSearchChange}
+          placeholder="Search by name"
+        />
+      </div>
+
       <div className="card-grid">
-        {members.map((member, index) => (
-          <MemberCard key={index} {...member} />
-        ))}
+        {filteredMembers.length > 0 ? (
+          filteredMembers.map((member) => (
+            <MemberCard
+              key={member.id}
+              {...member}
+              onRemove={handleRemoveMember}
+              onToggleStatus={handleToggleStatus}
+            />
+          ))
+        ) : (
+          <p className="no-members">No members match the current filters.</p>
+        )}
       </div>
     </div>
   );
