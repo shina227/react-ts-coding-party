@@ -1,3 +1,9 @@
+// Author: Shina Atete Mpeta  structure (Tasks 1-10)
+// Author: Grevy  array and props (Tasks 13, 20)
+// Author: Rwema  layout and styling (Tasks 21-30)
+// Author: IRADUKUNDA Ibrahim  form handling (Tasks 31-40)
+// Author: Kagame Dan state (tasks 41-50)
+
 import { type ChangeEvent, type FormEvent, useMemo, useState } from "react";
 import MemberCard, { type MemberCardProps } from "./MemberCard";
 import "./TeamDashboard.css";
