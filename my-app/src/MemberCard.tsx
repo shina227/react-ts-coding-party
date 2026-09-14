@@ -7,7 +7,7 @@
 import "./MemberCard.css";
 
 export interface MemberCardProps {
-  id?: string;
+  id: string;
   name: string;
   role: string;
   tasksCompleted?: number;
@@ -18,7 +18,7 @@ export interface MemberCardProps {
 }
 
 function MemberCard({
-  id = "",
+  id,
   name,
   role,
   tasksCompleted = 0,
@@ -45,7 +45,7 @@ function MemberCard({
         <button
           type="button"
           className="toggle-btn"
-          onClick={() => onToggleStatus?.(id || name)}
+          onClick={() => onToggleStatus?.(id)}
         >
           {isActive ? "Mark Inactive" : "Mark Active"}
         </button>
@@ -53,7 +53,7 @@ function MemberCard({
         <button
           type="button"
           className="remove-btn"
-          onClick={() => onRemove?.(id || name)}
+          onClick={() => onRemove?.(id)}
         >
           Remove
         </button>
