@@ -15,6 +15,61 @@
   color: #555;
 }
 
+.score-panel {
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.team-score {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 8px 0;
+  color: #1f2937;
+}
+
+.score-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.score-actions button,
+.member-form button {
+  border: none;
+  border-radius: 6px;
+  padding: 10px 14px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+.score-actions button:hover,
+.member-form button:hover {
+  background: #1d4ed8;
+}
+
+.member-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 320px;
+  margin-bottom: 24px;
+}
+
+.member-form label {
+  font-weight: 600;
+  color: #374151;
+}
+
+.member-form input {
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
 /* grid for cards */
 .card-grid {
   display: grid;
@@ -31,5 +86,9 @@
 
   .card-grid {
     grid-template-columns: 1fr;
+  }
+
+  .score-actions {
+    flex-direction: column;
   }
 }
